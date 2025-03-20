@@ -1,9 +1,10 @@
 # Use an official PHP runtime as a parent image with Apache
 FROM php:7.4-apache
 
-# Install PostgreSQL driver
+# Install PostgreSQL driver and vim (or nano)
 RUN apt-get update && apt-get install -y \
     libpq-dev \
+    vim \
     && docker-php-ext-install pdo_pgsql
 
 # Copy the current directory contents into the container at /var/www/html
@@ -23,3 +24,5 @@ EXPOSE 80
 
 # Use custom command to keep the container running
 CMD ["apache2-foreground"]
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
